@@ -1,0 +1,20 @@
+<!--
+  ~ Copyright (c) 2019.
+  ~ @author Andrey Inyagin <zemljanoj.i@gmail.com>
+  -->
+<div data-bind="visible: selectedMethod() == 'newposhta'">
+    <span class="newposhta-city" data-bind="text: $t('City')"></span>
+    <input class="input-text" type="text" data-bind="
+        value: value,
+        valueUpdate: 'keyup',
+        hasFocus: focused,
+        attr: {
+            name: inputName,
+            placeholder: placeholder,
+            'aria-describedby': getDescriptionId(),
+            'aria-required': required,
+            'aria-invalid': error() ? true : 'false',
+            id: uid,
+            disabled: disabled
+        }" />
+</div>

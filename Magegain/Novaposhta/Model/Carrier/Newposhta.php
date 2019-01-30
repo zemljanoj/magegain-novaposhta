@@ -13,6 +13,7 @@ use Magento\Framework\Api\SearchCriteriaBuilder;
 class Newposhta extends \Magento\Shipping\Model\Carrier\AbstractCarrier implements
     \Magento\Shipping\Model\Carrier\CarrierInterface
 {
+    const METHOD_NAME = 'newposhta';
 
     /**
      * @var string
@@ -118,6 +119,20 @@ class Newposhta extends \Magento\Shipping\Model\Carrier\AbstractCarrier implemen
         if (!$this->getConfigFlag('active')) {
             return false;
         }
+
+        $result = $this->_rateResultFactory->create();
+        $price = 0;
+        $method = $this->_rateMethodFactory->create();
+        $method->setCarrier($this->_code);
+        $method->setCarrierTitle(__('Новая почта'));
+        $method->setMethod(self::METHOD_NAME);
+        $method->setMethodTitle('');
+        $method->setPrice($price);
+        $method->setCost($price);
+        $result->append($method);
+
+        return $result;
+
         $senderCity = $this->scopeConfig->getValue('carriers/newposhta/citylist', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         $weightUnit = $this->scopeConfig->getValue('carriers/newposhta/weightunit', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         $city = $request->getDestCity();
